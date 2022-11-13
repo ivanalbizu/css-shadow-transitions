@@ -1,0 +1,57 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #fabe28;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.device {
+  margin: 40px auto 20px;
+  width: min(200px, 98%);
+  aspect-ratio: 720 / 1600;
+  max-height: 80vh;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  --linear-gradient: linear-gradient(#e66465, #9198e5);
+
+  --factor-x: 1;
+  --factor-y: 1;
+  --factor-rotate-X: calc(var(--factor-y) * 5deg);
+  --factor-rotate-Y: calc(var(--factor-x) * -20deg);
+
+  --illuminated-color: hsl(240, 25%, 35%);
+  --obscured-color: hsl(240, 25%, 20%);
+  --shadow-color: hsla(0, 0%, 0%, 0.66);
+
+  --x-mobile-edge: calc(6px * var(--factor-x));
+  --y-mobile-edge: calc(6px * var(--factor-y));
+
+  --x-shadow: calc(var(--factor-x) * 40px);
+  --y-shadow: calc(var(--factor-y) * 40px);
+  --computed-xy: calc(var(--factor-y) * var(--factor-x));
+  --blur-shadow: calc(max(var(--computed-xy), -1 * var(--computed-xy)) * 80px);
+
+  border-radius: 20px;
+  box-shadow: 0 0 0 10px var(--illuminated-color),
+    var(--x-mobile-edge) var(--y-mobile-edge) 0px 10px var(--obscured-color),
+    var(--x-shadow) var(--y-shadow) var(--blur-shadow) var(--shadow-color);
+
+  transform-origin: center;
+  transform: rotateX(var(--factor-rotate-X)) rotateY(var(--factor-rotate-Y));
+  transition: transform 0.3s, box-shadow 0.3s;
+  transition-timing-function: ease-in-out;
+}
